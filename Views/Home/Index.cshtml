@@ -1,0 +1,168 @@
+﻿@using Syncfusion.EJ2;
+@{
+    ViewBag.Title = "ASP.Net MVC Samples for Syncfusion Essential JS 2 - Loan Calculator";
+}
+<style>
+    #payment_pieChart
+    {
+        display: block !important;
+    }
+</style>
+<h2 class="header-style">Loan Calculator</h2>
+<div class="container main-content" id="content">
+    <div class="row left-content-wrap">
+        <div class="row loan-content">
+            <div class="left-content col-lg-12">
+                <div class="row form-space">
+                    <div class="col-lg-12">
+                        <div class="content-space">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label class="pricipal">Loan Amount</label>
+                                    </td>
+                                    <td>
+                                        <div class="editor-space">
+                                            @Html.EJS().NumericTextBox("principal_txt").Min(1000).Value(300000).Format("c0").Max(5000000).Step(10000).Width("200px").Change("principal_txtChange").Render()
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        @Html.EJS().Slider("pricipal").Min(0).Value(300000).Max(500000).Step(10000).Type(Syncfusion.EJ2.Inputs.SliderType.MinRange).Ticks(t => 
+                            t.Placement(Syncfusion.EJ2.Inputs.Placement.After).LargeStep(100000).SmallStep(10000).ShowSmallTicks(false).Format("c0")).Change("principalChange").Changed("principalChanged").RenderedTicks("principalRenderedTicks").Render()
+                    </div>
+                </div>
+                <div class="row form-space">
+                    <div class="col-lg-12">
+                        <div class="content-space">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label class="interestrate">Interest Rate</label>
+                                    </td>
+                                    <td>
+                                        <div class="editor-space">
+                                            @Html.EJS().NumericTextBox("interest_txt").Min(0).Value(5.5).Format("#.##\' %\'").Max(20).Step(0.25).Width("165px").Change("interest_txtChange").Render()
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        @Html.EJS().Slider("interestrate").Min(0).Value(5.5).Max(20).Step(0.25).Type(Syncfusion.EJ2.Inputs.SliderType.MinRange).Ticks(t =>
+                            t.Placement(Syncfusion.EJ2.Inputs.Placement.After).LargeStep(5).SmallStep(1).ShowSmallTicks(false)).Change("interestrateChange").Changed("interestrateChanged").Render()
+                    </div>
+                </div>
+                <div class="row form-space">
+                    <div class="col-lg-12">
+                        <div class="content-space">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label class="loantenure">Loan Term</label>
+                                        <ul class="tenure-value" style="float: left;">
+                                            <li>
+                                                @Html.EJS().RadioButton("radio1").Label("Month").Name("tenure").Value("month").Change("radio1Change").Render()
+                                            </li>
+                                            <li>
+                                                @Html.EJS().RadioButton("radio2").Label("Year").Name("tenure").Value("year").Checked(true).Change("radio2Change").Render()
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <div class="editor-space">
+                                            @Html.EJS().NumericTextBox("loan_txt").Min(1).Value(15).Format("#.##").Max(40).Step(1).Width("150px").Change("loan_txtChange").Render()
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        @Html.EJS().Slider("loantenure").Min(0).Value(15).Max(40).Step(1).Type(Syncfusion.EJ2.Inputs.SliderType.MinRange).Ticks(t =>
+                            t.Placement(Syncfusion.EJ2.Inputs.Placement.After).LargeStep(10).SmallStep(1).ShowSmallTicks(false)).Change("loantenureChange").Changed("loantenureChanged").Render()
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row loan-content">
+            <div class="col-lg-12 emi-content">
+                <div>
+                    <h6 class="emi-header">Break-up of Total Payment</h6>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        @Html.EJS().AccumulationChart("payment_pieChart").Series(s =>
+                            s.Radius("80%").XName("x").YName("y").StartAngle(290).EndAngle(290).InnerRadius("60%").Explode(true).ExplodeOffset("10%").ExplodeIndex(3).Animation(ViewBag.animation).Add()).PointRender("payment_pieChartPointRender").EnableSmartLabels(true).LegendSettings(ls => ls.Visible(false)).Height("365px").Width("100%").Tooltip(tooltip=>tooltip.Enable(false)).Background("#27304c").Render()
+                    </div>
+                    <div class="col-lg-5 pie-content" id="pieContent">
+                        <div>
+                            <p><span class="pie-icon pie-principal"></span>Principal Amount</p>
+                            <h5 id="loan_principal"></h5>
+                        </div>
+                        <div>
+                            <p><span class="pie-icon pie-interest"></span>Total Interest</p>
+                            <h5 id="loan_interest"></h5>
+                        </div>
+                        <div class="pie-total">
+                            <span>
+                                <p>Total Payment</p>
+                                <p>(Principal + Interest)</p>
+                            </span>
+                            <h5 id="loan_total_payment"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="emi-footer">Your Monthly Payment</h6>
+                    <h1 id="loan_emi"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row top-space loan-content" style="text-align: center">
+        <div class="graph-text">Monthly payments starting from</div>
+        <div class="graph-input">
+            @Html.EJS().DatePicker("monthStarter").ShowClearButton(false).Start(Syncfusion.EJ2.Calendars.CalendarView.Year).Depth(Syncfusion.EJ2.Calendars.CalendarView.Year).Placeholder("Enter Date").Format("MMM yyy").Value(System.DateTime.Today).Width("250px").StrictMode(true).ShowTodayButton(false).Change("monthStarterChange").Render()
+        </div>
+    </div>
+    <div class="row top-space loan-content max-content">
+        <h6 class="center-heading">Amortization Chart</h6>
+        <div class="col-lg-12 graph-container">
+            @Html.EJS().Chart("paymentGraph").EnableSideBySidePlacement(false).Series(s=>
+            {
+                s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearPrincipal").Name("Principal Paid").YAxisName("yAxis").Marker(ViewBag.markerSeries1).Add();
+                s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearInterest").Name("Interest Paid").YAxisName("yAxis").Marker(ViewBag.markerSeries2).Add();
+                s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).XName("yearN").Width(2).YName("endingBalance").Name("Balance").Marker(ViewBag.markerSeries3).Add();
+            }).PrimaryXAxis(xAxis=>
+                xAxis.Title("Years").ValueType(Syncfusion.EJ2.Charts.ValueType.DateTime).LabelFormat("y").MajorGridLines(ViewBag.majorGridLines).TitleStyle(ViewBag.titleStyle).LabelStyle(ViewBag.labelStyle).LineStyle(ViewBag.lineStyle).MinorTickLines(ViewBag.minorTickLines).MajorTickLines(ViewBag.majorTickLines).MinorGridLines(ViewBag.minorGridLines)).PrimaryYAxis(yAxis=>
+                yAxis.Title("Balance").LabelFormat("c0").RangePadding(Syncfusion.EJ2.Charts.ChartRangePadding.None).TitleStyle(ViewBag.titleStyle).LabelStyle(ViewBag.yAxisLabelStyle).LineStyle(ViewBag.yAxisLineStyle).MinorTickLines(ViewBag.yAxisMinorTickLines).MajorTickLines(ViewBag.yAxisMajorTickLines).MinorGridLines(ViewBag.yAxisMinorGridLines).MajorGridLines(ViewBag.yAxisMajorGridLines)).Axes(axes=>
+                axes.RowIndex(0).OpposedPosition(true).Name("yAxis").Title("Payment").LabelFormat("c0").MajorGridLines(ViewBag.axesMajorGridLines).MinorGridLines(ViewBag.axesMinorGridLines).MajorTickLines(ViewBag.axesMajorTickLines).MinorTickLines(ViewBag.axesMinorTickLines).LineStyle(ViewBag.axesLineStyle).LabelStyle(ViewBag.axesLabelStyle).TitleStyle(ViewBag.axesTitleStyle).Add()).ChartMouseUp("paymentGraphChartMouseup").Tooltip(tooltip=>tooltip.Enable(true).Shared(true).Fill("#FFFFFF").Opacity(1).TextStyle(ViewBag.tooltipTextStyle)).ChartArea(area=>area.Border(ViewBag.chartAreaBorder)).Height("500px").UseGroupingSeparator(true).Background("#27304c").AxisLabelRender("paymentGraphAxisLabelRender").LegendSettings(legendSettings=>legendSettings.TextStyle(ViewBag.legendTextStyle)).Palettes(ViewBag.palettes).Render()
+        </div>
+    </div>
+    <div class="row top-space loan-content max-content">
+        <h6 class="center-heading">Amortization Schedule</h6>
+        @Html.EJS().Grid("scheduleGrid").Width("100%").Columns(cols=> {
+       cols.Field("Year").HeaderText("Year").MinWidth("80px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Template("#columntemplate").Add();
+       cols.Field("yearTotal").HeaderText("Payment").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
+       cols.Field("yearPrincipal").HeaderText("Principal Paid").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
+       cols.Field("yearInterest").HeaderText("Interest Paid").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
+       cols.Field("endingBalance").HeaderText("Balance").MinWidth("80px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
+   }).ChildGrid(ViewBag.childGrid).Render()
+    </div>
+    <svg style="height: 0; width: 0;">
+        <defs>
+            <linearGradient id="principal_svg" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0"></stop>
+                <stop offset="1"></stop>
+            </linearGradient>
+            <linearGradient id="interest_svg" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0"></stop>
+                <stop offset="1"></stop>
+            </linearGradient>
+        </defs>
+    </svg>
+    <script id="columntemplate" type="text/x-template">
+        <div class="e-icons e-icon-grightarrow e-row-toggle"></div>
+        <span style="padding-left: 12px;">${year}</span>
+    </script>
+</div>
+<script src="~/Scripts/index.js"></script>
