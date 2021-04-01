@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         @Html.EJS().AccumulationChart("payment_pieChart").Series(s =>
-                            s.Radius("80%").XName("x").YName("y").StartAngle(290).EndAngle(290).InnerRadius("60%").Explode(true).ExplodeOffset("10%").ExplodeIndex(3).Animation(ViewBag.animation).Add()).PointRender("payment_pieChartPointRender").EnableSmartLabels(true).LegendSettings(ls => ls.Visible(false)).Height("365px").Width("100%").Tooltip(tooltip=>tooltip.Enable(false)).Background("#27304c").Render()
+                            s.Radius("80%").XName("x").YName("y").StartAngle(290).EndAngle(290).InnerRadius("60%").Explode(true).ExplodeOffset("10%").ExplodeIndex(3).Animation(a => a.Enable(true)).Add()).PointRender("payment_pieChartPointRender").EnableSmartLabels(true).LegendSettings(ls => ls.Visible(false)).Height("365px").Width("100%").Tooltip(tooltip=>tooltip.Enable(false)).Background("#27304c").Render()
                     </div>
                     <div class="col-lg-5 pie-content" id="pieContent">
                         <div>
@@ -128,14 +128,14 @@
         <h6 class="center-heading">Amortization Chart</h6>
         <div class="col-lg-12 graph-container">
             @Html.EJS().Chart("paymentGraph").EnableSideBySidePlacement(false).Series(s=>
-            {
-                s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearPrincipal").Name("Principal Paid").YAxisName("yAxis").Marker(ViewBag.markerSeries1).Add();
-                s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearInterest").Name("Interest Paid").YAxisName("yAxis").Marker(ViewBag.markerSeries2).Add();
-                s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).XName("yearN").Width(2).YName("endingBalance").Name("Balance").Marker(ViewBag.markerSeries3).Add();
-            }).PrimaryXAxis(xAxis=>
-                xAxis.Title("Years").ValueType(Syncfusion.EJ2.Charts.ValueType.DateTime).LabelFormat("y").MajorGridLines(ViewBag.majorGridLines).TitleStyle(ViewBag.titleStyle).LabelStyle(ViewBag.labelStyle).LineStyle(ViewBag.lineStyle).MinorTickLines(ViewBag.minorTickLines).MajorTickLines(ViewBag.majorTickLines).MinorGridLines(ViewBag.minorGridLines)).PrimaryYAxis(yAxis=>
-                yAxis.Title("Balance").LabelFormat("c0").RangePadding(Syncfusion.EJ2.Charts.ChartRangePadding.None).TitleStyle(ViewBag.titleStyle).LabelStyle(ViewBag.yAxisLabelStyle).LineStyle(ViewBag.yAxisLineStyle).MinorTickLines(ViewBag.yAxisMinorTickLines).MajorTickLines(ViewBag.yAxisMajorTickLines).MinorGridLines(ViewBag.yAxisMinorGridLines).MajorGridLines(ViewBag.yAxisMajorGridLines)).Axes(axes=>
-                axes.RowIndex(0).OpposedPosition(true).Name("yAxis").Title("Payment").LabelFormat("c0").MajorGridLines(ViewBag.axesMajorGridLines).MinorGridLines(ViewBag.axesMinorGridLines).MajorTickLines(ViewBag.axesMajorTickLines).MinorTickLines(ViewBag.axesMinorTickLines).LineStyle(ViewBag.axesLineStyle).LabelStyle(ViewBag.axesLabelStyle).TitleStyle(ViewBag.axesTitleStyle).Add()).ChartMouseUp("paymentGraphChartMouseup").Tooltip(tooltip=>tooltip.Enable(true).Shared(true).Fill("#FFFFFF").Opacity(1).TextStyle(ViewBag.tooltipTextStyle)).ChartArea(area=>area.Border(ViewBag.chartAreaBorder)).Height("500px").UseGroupingSeparator(true).Background("#27304c").AxisLabelRender("paymentGraphAxisLabelRender").LegendSettings(legendSettings=>legendSettings.TextStyle(ViewBag.legendTextStyle)).Palettes(ViewBag.palettes).Render()
+       {
+           s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearPrincipal").Name("Principal Paid").YAxisName("yAxis").Marker(mr => mr.Visible(true).Width(10).Height(10)).Add();
+           s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearInterest").Name("Interest Paid").YAxisName("yAxis").Marker(mr => mr.Visible(true).Width(10).Height(10)).Add();
+           s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).XName("yearN").Width(2).YName("endingBalance").Name("Balance").Marker(mr => mr.Visible(true).Width(10).Height(10).Fill("#60448D")).Add();
+       }).PrimaryXAxis(xAxis=>
+           xAxis.Title("Years").ValueType(Syncfusion.EJ2.Charts.ValueType.DateTime).LabelFormat("y").MajorGridLines(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("12px")).LineStyle(ls => ls.Width(1).DashArray("2").Color("rgba(255,255,255,0.2)")).TitleStyle(ViewBag.titleStyle)).PrimaryYAxis(yAxis=>
+           yAxis.Title("Balance").LabelFormat("c0").RangePadding(Syncfusion.EJ2.Charts.ChartRangePadding.None).LineStyle(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).MajorGridLines(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("16px")).TitleStyle(ViewBag.titleStyle)).Axes(axes=>
+           axes.RowIndex(0).OpposedPosition(true).Name("yAxis").Title("Payment").LabelFormat("c0").MajorGridLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).LineStyle(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("16px")).TitleStyle(ViewBag.axesTitleStyle).Add()).ChartMouseUp("paymentGraphChartMouseup").Tooltip(tooltip=>tooltip.Enable(true).Shared(true).Fill("#FFFFFF").Opacity(1).TextStyle(t=>t.Color("#555555").FontWeight("400").Size("12px").FontFamily("Roboto"))).ChartArea(area=>area.Border(ViewBag.chartAreaBorder)).Height("500px").UseGroupingSeparator(true).Background("#27304c").AxisLabelRender("paymentGraphAxisLabelRender").LegendSettings(legendSettings=>legendSettings.TextStyle(t=>t.Color("#FFFFFF").FontFamily("Raleway, sans-serif").FontWeight("600").Size("16px").Opacity(0.62))).Palettes(ViewBag.palettes).Render()
         </div>
     </div>
     <div class="row top-space loan-content max-content">
