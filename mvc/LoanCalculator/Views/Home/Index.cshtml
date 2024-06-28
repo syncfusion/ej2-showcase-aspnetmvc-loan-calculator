@@ -29,8 +29,7 @@
                                 </tr>
                             </table>
                         </div>
-                        @Html.EJS().Slider("pricipal").Min(0).Value(300000).Max(500000).Step(10000).Type(Syncfusion.EJ2.Inputs.SliderType.MinRange).Ticks(t => 
-                            t.Placement(Syncfusion.EJ2.Inputs.Placement.After).LargeStep(100000).SmallStep(10000).ShowSmallTicks(false).Format("c0")).Change("principalChange").Changed("principalChanged").RenderedTicks("principalRenderedTicks").Render()
+                        @Html.EJS().Slider("pricipal").Min(0).Value(300000).Max(500000).Step(10000).Type(Syncfusion.EJ2.Inputs.SliderType.MinRange).Ticks(t =>t.Placement(Syncfusion.EJ2.Inputs.Placement.After).LargeStep(100000).SmallStep(10000).ShowSmallTicks(false).Format("c0")).Change("principalChange").Changed("principalChanged").RenderedTicks("principalRenderedTicks").Render()
                     </div>
                 </div>
                 <div class="row form-space">
@@ -90,8 +89,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-7">
-                        @Html.EJS().AccumulationChart("payment_pieChart").Series(s =>
-                            s.Radius("80%").XName("x").YName("y").StartAngle(290).EndAngle(290).InnerRadius("60%").Explode(true).ExplodeOffset("10%").ExplodeIndex(3).Animation(a => a.Enable(true)).Add()).PointRender("payment_pieChartPointRender").EnableSmartLabels(true).LegendSettings(ls => ls.Visible(false)).Height("365px").Width("100%").Tooltip(tooltip=>tooltip.Enable(false)).Background("#27304c").Render()
+                        @Html.EJS().AccumulationChart("payment_pieChart").Series(s =>s.Radius("80%").XName("x").YName("y").StartAngle(290).EndAngle(290).InnerRadius("60%").Explode(true).ExplodeOffset("10%").ExplodeIndex(3).Animation(a => a.Enable(true)).Add()).PointRender("payment_pieChartPointRender").EnableSmartLabels(true).LegendSettings(ls => ls.Visible(false)).Height("365px").Width("100%").Tooltip(tooltip => tooltip.Enable(false)).Background("#27304c").Render()
                     </div>
                     <div class="col-lg-5 pie-content" id="pieContent">
                         <div>
@@ -127,26 +125,27 @@
     <div class="row top-space loan-content max-content">
         <h6 class="center-heading">Amortization Chart</h6>
         <div class="col-lg-12 graph-container">
-            @Html.EJS().Chart("paymentGraph").EnableSideBySidePlacement(false).Series(s=>
+            @Html.EJS().Chart("paymentGraph").EnableSideBySidePlacement(false).Series(s =>
        {
            s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearPrincipal").Name("Principal Paid").YAxisName("yAxis").Marker(mr => mr.Visible(true).Width(10).Height(10)).Add();
            s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn).ColumnWidth(0.425).XName("yearN").Width(2).YName("yearInterest").Name("Interest Paid").YAxisName("yAxis").Marker(mr => mr.Visible(true).Width(10).Height(10)).Add();
            s.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).XName("yearN").Width(2).YName("endingBalance").Name("Balance").Marker(mr => mr.Visible(true).Width(10).Height(10).Fill("#60448D")).Add();
-       }).PrimaryXAxis(xAxis=>
-           xAxis.Title("Years").ValueType(Syncfusion.EJ2.Charts.ValueType.DateTime).LabelFormat("y").MajorGridLines(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("12px")).LineStyle(ls => ls.Width(1).DashArray("2").Color("rgba(255,255,255,0.2)")).TitleStyle(ViewBag.titleStyle)).PrimaryYAxis(yAxis=>
-           yAxis.Title("Balance").LabelFormat("c0").RangePadding(Syncfusion.EJ2.Charts.ChartRangePadding.None).LineStyle(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).MajorGridLines(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("16px")).TitleStyle(ViewBag.titleStyle)).Axes(axes=>
-           axes.RowIndex(0).OpposedPosition(true).Name("yAxis").Title("Payment").LabelFormat("c0").MajorGridLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).LineStyle(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("16px")).TitleStyle(ViewBag.axesTitleStyle).Add()).ChartMouseUp("paymentGraphChartMouseup").Tooltip(tooltip=>tooltip.Enable(true).Shared(true).Fill("#FFFFFF").Opacity(1).TextStyle(t=>t.Color("#555555").FontWeight("400").Size("12px").FontFamily("Roboto"))).ChartArea(area=>area.Border(ViewBag.chartAreaBorder)).Height("500px").UseGroupingSeparator(true).Background("#27304c").AxisLabelRender("paymentGraphAxisLabelRender").LegendSettings(legendSettings=>legendSettings.TextStyle(t=>t.Color("#FFFFFF").FontFamily("Raleway, sans-serif").FontWeight("600").Size("16px").Opacity(0.62))).Palettes(ViewBag.palettes).Render()
+       }).PrimaryXAxis(xAxis =>
+           xAxis.Title("Years").ValueType(Syncfusion.EJ2.Charts.ValueType.DateTime).LabelFormat("y").MajorGridLines(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("12px")).LineStyle(ls => ls.Width(1).DashArray("2").Color("rgba(255,255,255,0.2)")).TitleStyle(ViewBag.titleStyle)).PrimaryYAxis(yAxis =>
+           yAxis.Title("Balance").LabelFormat("c0").RangePadding(Syncfusion.EJ2.Charts.ChartRangePadding.None).LineStyle(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).MajorGridLines(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("16px")).TitleStyle(ViewBag.titleStyle)).Axes(axes =>
+           axes.RowIndex(0).OpposedPosition(true).Name("yAxis").Title("Payment").LabelFormat("c0").MajorGridLines(mg => mg.Width(0.00001)).MinorGridLines(mg => mg.Width(0.00001)).MajorTickLines(mg => mg.Width(0.00001)).MinorTickLines(mg => mg.Width(0.00001)).LineStyle(mg => mg.Width(0.00001)).LabelStyle(ls => ls.Color("#989CA9").FontFamily("Roboto").FontWeight("400").Size("16px")).TitleStyle(ViewBag.axesTitleStyle).Add()).ChartMouseUp("paymentGraphChartMouseup").Tooltip(tooltip => tooltip.Enable(true).Shared(true).Fill("#FFFFFF").Opacity(1).TextStyle(t => t.Color("#555555").FontWeight("400").Size("12px").FontFamily("Roboto"))).ChartArea(area => area.Border(ViewBag.chartAreaBorder)).Height("500px").UseGroupingSeparator(true).Background("#27304c").AxisLabelRender("paymentGraphAxisLabelRender").LegendSettings(legendSettings => legendSettings.TextStyle(t => t.Color("#FFFFFF").FontFamily("Raleway, sans-serif").FontWeight("600").Size("16px").Opacity(0.62))).Palettes(ViewBag.palettes).Render()
         </div>
     </div>
     <div class="row top-space loan-content max-content">
         <h6 class="center-heading">Amortization Schedule</h6>
-        @Html.EJS().Grid("scheduleGrid").Width("100%").Columns(cols=> {
-       cols.Field("Year").HeaderText("Year").MinWidth("80px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Template("#columntemplate").Add();
-       cols.Field("yearTotal").HeaderText("Payment").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
+        @Html.EJS().TreeGrid("treeGrid").Width("100%").Columns(cols =>
+   {
+       cols.Field("year").HeaderText("Year/Month").MinWidth("80px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+       cols.Field("yearTotal").HeaderText("Payment").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Template("#columntemplate").Add();
        cols.Field("yearPrincipal").HeaderText("Principal Paid").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
        cols.Field("yearInterest").HeaderText("Interest Paid").MinWidth("120px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
        cols.Field("endingBalance").HeaderText("Balance").MinWidth("80px").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Format("C0").Add();
-   }).ChildGrid(ViewBag.childGrid).Render()
+   }).TreeColumnIndex(0).EnableCollapseAll(true).ParentIdMapping("parentId").IdMapping("id").ChildMapping("childRecord").Render()
     </div>
     <svg style="height: 0; width: 0;">
         <defs>
@@ -161,8 +160,11 @@
         </defs>
     </svg>
     <script id="columntemplate" type="text/x-template">
-        <div class="e-icons e-icon-grightarrow e-row-toggle"></div>
-        <span style="padding-left: 12px;">${year}</span>
+        ${if(parentItem)}
+        <span>$${emi}</span>
+        ${else}
+        <span>$${yearTotal}</span>
+        ${/if}
     </script>
 </div>
 <script src="~/Scripts/index.js"></script>
