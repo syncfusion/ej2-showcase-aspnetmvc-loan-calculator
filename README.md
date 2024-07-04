@@ -8,9 +8,9 @@ Demo application that calculates your loan payment based on your loan amount, in
 - Visual Studio 2019
 
 ### Run
-1. Clone this repository.
-2. Open the `.csproj` file in VS 2022.
-3. Click the green run button in the toolbar.
+- Clone the repository.
+- Open the Loan_Calculator.csproj file using Visual Studio.
+- Press Ctrl + F5 to run the sample.
 
 ## Demo
 
