@@ -1,6 +1,6 @@
 [![.NET](https://github.com/syncfusion/ej2-showcase-aspnetmvc-loan-calculator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/syncfusion/ej2-showcase-aspnetmvc-loan-calculator/actions/workflows/dotnet.yml)
 
-# Syncfusion® ASP.NET MVC - Loan Calculator Showcase App
+# Essential JS 2® for ASP.NET MVC - Loan Calculator
 
 Demo application that calculates your loan payment based on your loan amount, interest and term.
 
